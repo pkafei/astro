@@ -2,6 +2,7 @@ import type { MarkdownRenderingOptions } from '@astrojs/markdown-remark';
 import type {
 	AstroGlobal,
 	AstroGlobalPartial,
+	Locals,
 	Params,
 	Props,
 	RuntimeMode,
@@ -46,6 +47,7 @@ export interface CreateResultArgs {
 	componentMetadata?: SSRResult['componentMetadata'];
 	request: Request;
 	status: number;
+	locals: Locals;
 }
 
 function getFunctionExpression(slot: any) {
@@ -125,7 +127,7 @@ class Slots {
 let renderMarkdown: any = null;
 
 export function createResult(args: CreateResultArgs): SSRResult {
-	const { markdown, params, pathname, renderers, request, resolve } = args;
+	const { markdown, params, pathname, renderers, request, resolve, locals } = args;
 
 	const url = new URL(request.url);
 	const headers = new Headers();
@@ -194,6 +196,7 @@ export function createResult(args: CreateResultArgs): SSRResult {
 				},
 				params,
 				props,
+				locals,
 				request,
 				url,
 				redirect: args.ssr
