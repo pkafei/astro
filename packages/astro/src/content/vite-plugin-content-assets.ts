@@ -32,7 +32,6 @@ export function astroContentAssetPropagationPlugin({
 	settings: AstroSettings;
 }): Plugin {
 	let devModuleLoader: ModuleLoader;
-	const contentEntryExts = getContentEntryExts(settings);
 	return {
 		name: 'astro:content-asset-propagation',
 		configureServer(server) {
